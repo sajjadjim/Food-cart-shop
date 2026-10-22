@@ -23,8 +23,11 @@ export default class PreLoader extends EventEmitter
         this.resources.on('itemLoaded', () =>
         {
             this.progressRatio = (this.resources.loaded + 1)/ this.resources.toLoad
-            
-            document.getElementById("progressPercentage").innerHTML = Math.trunc(this.progressRatio * 100)
+            const percentage = Math.trunc(this.progressRatio * 100)
+            const percentageEl = document.getElementById("progressPercentage")
+            if (percentageEl) percentageEl.innerHTML = percentage
+            const fillEl = document.getElementById("loadingBarFill")
+            if (fillEl) fillEl.style.width = percentage + '%'
         })
 
         //Loaded
@@ -46,7 +49,7 @@ export default class PreLoader extends EventEmitter
     readyScreen()
     {
         this.cooking.remove()
-        this.startButton.style.display = "inline"
+        this.startButton.style.display = "inline-flex"
         this.startButton.classList.add('fadeIn')
         this.startButton.addEventListener("click", async () => {
 

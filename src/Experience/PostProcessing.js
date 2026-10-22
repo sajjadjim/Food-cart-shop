@@ -62,19 +62,27 @@ export default class PostProcessing
 
     setBloomObjects()
     {
-        this.ramenShop.chinese.layers.enable(this.BLOOM_SCENE)
-        this.ramenShop.neonBlue.layers.enable(this.BLOOM_SCENE)
-        this.ramenShop.neonPink.layers.enable(this.BLOOM_SCENE)
-        this.ramenShop.neonYellow.layers.enable(this.BLOOM_SCENE)
-        this.ramenShop.neonGreen.layers.enable(this.BLOOM_SCENE)
-        this.ramenShop.whiteButton.layers.enable(this.BLOOM_SCENE)
-        this.ramenShop.redLED.layers.enable(this.BLOOM_SCENE)
-        this.ramenShop.greenLED.layers.enable(this.BLOOM_SCENE)
-        this.ramenShop.portalLight.layers.enable(this.BLOOM_SCENE)
-        this.ramenShop.storageLight.layers.enable(this.BLOOM_SCENE)
-        this.ramenShop.poleLight.layers.enable(this.BLOOM_SCENE)
-        this.ramenShop.arcadeRim.layers.enable(this.BLOOM_SCENE)
-        this.ramenShop.hologramBase.layers.enable(this.BLOOM_SCENE)
+        const bloomObjects = [
+            this.ramenShop.chinese,
+            this.ramenShop.neonBlue,
+            this.ramenShop.neonPink,
+            this.ramenShop.neonYellow,
+            this.ramenShop.neonGreen,
+            this.ramenShop.whiteButton,
+            this.ramenShop.redLED,
+            this.ramenShop.greenLED,
+            this.ramenShop.portalLight,
+            this.ramenShop.storageLight,
+            this.ramenShop.poleLight,
+            this.ramenShop.arcadeRim,
+            this.ramenShop.hologramBase,
+            this.ramenShop.jesseZhouJoined
+        ]
+        bloomObjects.forEach(obj => {
+            if(obj && obj.layers) {
+                obj.layers.enable(this.BLOOM_SCENE)
+            }
+        })
     }
 
     setRenderTarget()

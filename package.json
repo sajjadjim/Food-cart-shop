@@ -1,5 +1,7 @@
 {
-  "repository": "#",
+  "name": "sajjadjim-ramen-shop",
+  "repository": "https://github.com/sajjadjim/Food-cart-shop",
+  "author": "sajjadjim (https://github.com/sajjadjim)",
   "license": "UNLICENSED",
   "scripts": {
     "build": "webpack --config ./bundler/webpack.prod.js",

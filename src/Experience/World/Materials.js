@@ -43,24 +43,24 @@ export default class Materials
     mapColors()
     {
         // non-glowing lights
-        this.greenSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#1EFF51')})
-        this.redSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FF0033')})
-        this.whiteSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FFFFFF')})
-        this.blackSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#000000')})
-        this.pinkSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FF2FD5')})
-        this.blueSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#01DDFF')})
-        this.orangeSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FF5100')})
-        this.redLedMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FF112B')})
-        this.greenLedMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#00FF00')})
-        this.grayLedOffMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#585858')})
-        this.grayLedOnMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FFFFFF')})
+        this.greenSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#00FFA3')})
+        this.redSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FF0055')})
+        this.whiteSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#F0F6FC')})
+        this.blackSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#080A10')})
+        this.pinkSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FF107F')})
+        this.blueSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#00F0FF')})
+        this.orangeSignMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FF7A00')})
+        this.redLedMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FF1744')})
+        this.greenLedMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#00E676')})
+        this.grayLedOffMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#3A3F50')})
+        this.grayLedOnMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#E0E8F5')})
 
         // glowing lights
-        this.neonYellowMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FFF668')})
-        this.neonPinkMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FF3DCB')})
-        this.neonBlueMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#00BBFF')})
-        this.poleLightMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FF5EF1')})
-        this.neonGreenMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#56FF54')})
+        this.neonYellowMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FFE838')})
+        this.neonPinkMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#FF1B8D')})
+        this.neonBlueMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#00F0FF')})
+        this.poleLightMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#B537FF')})
+        this.neonGreenMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color('#00FFA3')})
     } 
 
     mapTextures()
@@ -128,10 +128,10 @@ export default class Materials
 
         // Big Screen
 
-        this.debugObject.bigScreenLightColor = '#00FFF0'
-        this.debugObject.bigScreenDarkColor = '#05a7bd'
-        this.debugObject.vendingMachineScreenLightColor = '#34fe81'
-        this.debugObject.vendingMachineScreenDarkColor = '#386aff'
+        this.debugObject.bigScreenLightColor = '#00F0FF'
+        this.debugObject.bigScreenDarkColor = '#7928CA'
+        this.debugObject.vendingMachineScreenLightColor = '#00FFA3'
+        this.debugObject.vendingMachineScreenDarkColor = '#2563EB'
 
         this.bigScreenMaterial = new THREE.ShaderMaterial({
           vertexShader: bigScreenVertexShader,
