@@ -204,3 +204,103 @@ export function createProfileCanvasTexture(type = 'about') {
     texture.needsUpdate = true
     return texture
 }
+
+export function createFloorSignTexture() {
+    const canvas = document.createElement('canvas')
+    canvas.width = 1024
+    canvas.height = 1024
+    const ctx = canvas.getContext('2d')
+
+    ctx.clearRect(0, 0, 1024, 1024)
+
+    // Sajjad JIM Title (matching Image 1 font & layout)
+    ctx.shadowColor = '#00f0ff'
+    ctx.shadowBlur = 18
+    ctx.fillStyle = '#ffffff'
+    ctx.font = '900 115px "Outfit", sans-serif'
+    ctx.fillText('Sajjad JIM', 60, 160)
+
+    // Subtle neon underline
+    ctx.strokeStyle = '#00f0ff'
+    ctx.lineWidth = 4
+    ctx.beginPath()
+    ctx.moveTo(60, 190)
+    ctx.lineTo(680, 190)
+    ctx.stroke()
+
+    // Subtitle roles & tech stack
+    ctx.shadowColor = 'rgba(255, 255, 255, 0.8)'
+    ctx.shadowBlur = 10
+    ctx.font = '500 64px "Outfit", sans-serif'
+    ctx.fillStyle = '#ffffff'
+
+    const lines = [
+        'Web Developer',
+        'React & Next.js',
+        'Node.js',
+        'MongoDB & Supabase',
+        'sajjadjim.web.app'
+    ]
+
+    let y = 300
+    lines.forEach((line, index) => {
+        if (index === lines.length - 1) {
+            ctx.shadowColor = '#00f0ff'
+            ctx.fillStyle = '#00f0ff'
+            ctx.font = '600 56px "Space Grotesk", sans-serif'
+        }
+        ctx.fillText(line, 60, y)
+        y += 105
+    })
+
+    const texture = new THREE.CanvasTexture(canvas)
+    texture.encoding = THREE.sRGBEncoding
+    texture.needsUpdate = true
+    return texture
+}
+
+export function createMainShopSignTexture() {
+    const canvas = document.createElement('canvas')
+    canvas.width = 1024
+    canvas.height = 360
+    const ctx = canvas.getContext('2d')
+
+    // Dark cyberpunk panel
+    ctx.fillStyle = '#090d1f'
+    ctx.fillRect(0, 0, 1024, 360)
+
+    // Inner glowing cyan neon frame
+    ctx.strokeStyle = '#00f0ff'
+    ctx.lineWidth = 8
+    ctx.shadowColor = '#00f0ff'
+    ctx.shadowBlur = 25
+    ctx.strokeRect(16, 16, 992, 328)
+
+    ctx.strokeStyle = '#ff107f'
+    ctx.lineWidth = 4
+    ctx.shadowColor = '#ff107f'
+    ctx.shadowBlur = 15
+    ctx.strokeRect(28, 28, 968, 304)
+
+    // Glowing Neon text
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+
+    // Neon drop shadow
+    ctx.shadowColor = '#00f0ff'
+    ctx.shadowBlur = 30
+    ctx.fillStyle = '#ffffff'
+    ctx.font = '900 96px "Outfit", sans-serif'
+    ctx.fillText("SAJJAD JIM'S RAMEN", 512, 180)
+
+    // Foreground crisp letters
+    ctx.shadowBlur = 0
+    ctx.fillStyle = '#f0ffff'
+    ctx.fillText("SAJJAD JIM'S RAMEN", 512, 180)
+
+    const texture = new THREE.CanvasTexture(canvas)
+    texture.encoding = THREE.sRGBEncoding
+    texture.needsUpdate = true
+    return texture
+}
+

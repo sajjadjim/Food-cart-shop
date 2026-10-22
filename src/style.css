@@ -667,6 +667,27 @@ body {
     font-size: 1rem;
 }
 
+.hud-action-btn.reset-btn {
+    background: linear-gradient(135deg, rgba(255, 183, 3, 0.2), rgba(255, 16, 127, 0.2));
+    border-color: rgba(255, 183, 3, 0.45);
+}
+
+.hud-action-btn.reset-btn:hover {
+    border-color: var(--neon-amber);
+    box-shadow: 0 6px 24px rgba(255, 183, 3, 0.4);
+}
+
+.hud-action-btn.github-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.hud-action-btn.github-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: #ffffff;
+    box-shadow: 0 6px 24px rgba(255, 255, 255, 0.25);
+}
+
 .hud-action-btn .btn-arrow {
     color: var(--neon-cyan);
     transition: transform 0.2s ease;
@@ -674,6 +695,61 @@ body {
 
 .hud-action-btn:hover .btn-arrow {
     transform: translate(2px, -2px);
+}
+
+/* Floating Close / Exit View Button */
+.exit-view-btn {
+    position: fixed;
+    top: 76px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 60;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: rgba(10, 14, 28, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid var(--neon-pink);
+    border-radius: 9999px;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(255, 16, 127, 0.4), 0 0 16px rgba(255, 16, 127, 0.3);
+    animation: bounceInTop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.25s ease;
+}
+
+.exit-view-btn:hover {
+    background: linear-gradient(135deg, rgba(255, 16, 127, 0.35), rgba(0, 240, 255, 0.35));
+    border-color: var(--neon-cyan);
+    box-shadow: 0 10px 40px rgba(0, 240, 255, 0.5), 0 0 25px rgba(255, 16, 127, 0.5);
+    transform: translateX(-50%) translateY(-2px) scale(1.03);
+}
+
+.exit-shortcut {
+    font-size: 0.72rem;
+    padding: 2px 7px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--neon-cyan);
+    font-weight: 700;
+}
+
+@keyframes bounceInTop {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-25px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
 /* About Sajjad JIM Modal */

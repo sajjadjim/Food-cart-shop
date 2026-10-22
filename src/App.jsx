@@ -9,11 +9,22 @@ import './style.css'
 
 export default function App() {
     const [isAboutOpen, setIsAboutOpen] = useState(false)
+    const [isZoomedIn, setIsZoomedIn] = useState(false)
 
     useEffect(() => {
         const handleOpenModal = () => setIsAboutOpen(true)
+        const handleViewModeChanged = (e) => {
+            const mode = e.detail && e.detail.mode
+            setIsZoomedIn(mode && mode !== 'menu')
+        }
+
         window.addEventListener('openAboutModal', handleOpenModal)
-        return () => window.removeEventListener('openAboutModal', handleOpenModal)
+        window.addEventListener('viewModeChanged', handleViewModeChanged)
+
+        return () => {
+            window.removeEventListener('openAboutModal', handleOpenModal)
+            window.removeEventListener('viewModeChanged', handleViewModeChanged)
+        }
     }, [])
 
     const handleStart = () => {
@@ -21,6 +32,12 @@ export default function App() {
         if (experience && experience.preLoader) {
             experience.preLoader.startExperience()
         }
+    }
+
+    const handleResetView = () => {
+        window.dispatchEvent(new CustomEvent('requestResetView'))
+        setIsZoomedIn(false)
+        setIsAboutOpen(false)
     }
 
     const handleOpenAbout = () => {
@@ -43,9 +60,32 @@ export default function App() {
         <div className="app-container">
             <RamenCanvas />
             <HudHeader onOpenAbout={handleOpenAbout} />
+
+            {/* Prominent floating Exit/Close Button when zoomed into any machine/sign */}
+            {isZoomedIn && (
+                <button
+                    className="exit-view-btn"
+                    onClick={handleResetView}
+                    title="Exit back to main shop overview (or press ESC)"
+                >
+                    <span className="exit-icon">←</span>
+                    <span className="exit-text">BACK TO SHOP</span>
+                    <span className="exit-badge">ESC</span>
+                </button>
+            )}
+
             <HudFooter />
             <LoadingScreen onStart={handleStart} />
-            <AboutModal isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
+            <AboutModal
+                isOpen={isAboutOpen}
+                onClose={() => {
+                    setIsAboutOpen(false)
+                    if (isZoomedIn) {
+                        handleResetView()
+                    }
+                }}
+            />
         </div>
     )
 }
+

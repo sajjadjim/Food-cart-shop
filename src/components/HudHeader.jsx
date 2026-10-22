@@ -25,6 +25,14 @@ export default function HudHeader({ onOpenAbout }) {
                     <span className="btn-icon">⚡</span>
                     <span>About Me</span>
                 </button>
+                <button
+                    className="hud-action-btn reset-btn"
+                    onClick={() => window.dispatchEvent(new CustomEvent('requestResetView'))}
+                    title="Reset Camera to Main Ramen Shop Overview (Esc)"
+                >
+                    <span className="btn-icon">🔄</span>
+                    <span className="btn-label">Overview</span>
+                </button>
             </div>
 
             <div className="hud-right">

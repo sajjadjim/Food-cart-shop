@@ -52,6 +52,57 @@ export default class Controller
             await this.sleep(lockDuration)
             this.logic.buttonsLocked = false
         }
+
+        // Master function to exit any zoomed mode back to normal shop view
+        this.resetToDefaultView = async () =>
+        {
+            if (this.sounds) {
+                this.sounds.playClick()
+                this.sounds.playWhoosh()
+            }
+            this.logic.buttonsLocked = false
+            this.logic.mode = 'menu'
+            this.camControls.toDefault()
+
+            if (this.materials && this.materials.bigScreenMaterial && this.resources && this.resources.items) {
+                this.bigScreenTransition(
+                    this.materials.bigScreenMaterial,
+                    this.resources.items.bigScreenDefaultTexture,
+                    0.3,
+                    1,
+                    0
+                )
+            }
+
+            if (this.materials && this.materials.vendingMachineScreenMaterial && this.resources && this.resources.items) {
+                this.bigScreenTransition(
+                    this.materials.vendingMachineScreenMaterial,
+                    this.resources.items.vendingMachineDefaultTexture,
+                    0.3,
+                    true
+                )
+            }
+
+            if (this.materials && this.materials.arcadeScreenMaterial && this.resources && this.resources.items) {
+                this.screenTransition(
+                    this.materials.arcadeScreenMaterial,
+                    this.resources.items.arcadeScreenDefaultTexture,
+                    0.2
+                )
+            }
+
+            window.dispatchEvent(new CustomEvent('viewModeChanged', { detail: { mode: 'menu' } }))
+        }
+
+        window.addEventListener('requestResetView', () => {
+            this.resetToDefaultView()
+        })
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.resetToDefaultView()
+            }
+        })
     }
 
     // Project selection
@@ -220,6 +271,7 @@ export default class Controller
                     this.resources.items.vendingMachineMenuTexture,
                     0.2
                 )
+                window.dispatchEvent(new CustomEvent('viewModeChanged', { detail: { mode: 'projects0' } }))
             }
  
         }
@@ -229,8 +281,10 @@ export default class Controller
             {
                 this.sounds.playClick()
                 this.sounds.playWhoosh()
+                this.logic.mode = 'floorProfile'
                 this.menuControls.buttonIndicator(obj, color)
                 this.camera.transitions.jZhou(1.5)
+                window.dispatchEvent(new CustomEvent('viewModeChanged', { detail: { mode: 'floorProfile' } }))
             }
         }
         this.menuControls.articles = async (obj, color) =>
@@ -258,6 +312,7 @@ export default class Controller
                     0.2,
                 )
                 window.dispatchEvent(new CustomEvent('openAboutModal'))
+                window.dispatchEvent(new CustomEvent('viewModeChanged', { detail: { mode: 'aboutMe' } }))
             }
         }
         this.menuControls.credits = async (obj, color) =>
@@ -268,6 +323,7 @@ export default class Controller
                 this.logic.mode = 'creditsStart'
                 this.menuControls.buttonIndicator(obj, color)
                 this.camControls.toCredits()
+                window.dispatchEvent(new CustomEvent('viewModeChanged', { detail: { mode: 'creditsStart' } }))
             }
         }
 

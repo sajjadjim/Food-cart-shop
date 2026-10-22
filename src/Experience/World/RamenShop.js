@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import Experience from '../Experience.js'
+import { createFloorSignTexture, createMainShopSignTexture } from '../Utils/ProfileTextures.js'
 
 
 export default class RamenShop
@@ -114,7 +115,37 @@ export default class RamenShop
             this.floor.material = this.materials.floorMaterial
             this.misc.material = this.materials.miscMaterial
             this.graphics.material = this.materials.graphicsMaterial
-            this.jesseZhouJoined.material = this.materials.whiteSignMaterial
+            // Replace old 3D Jesse Zhou text with glowing Sajjad JIM Floor Sign
+            if (this.jesseZhouJoined) {
+                this.jesseZhouJoined.visible = false
+            }
+
+            const floorSignGeo = new THREE.PlaneGeometry(3.6, 2.8)
+            const floorSignMat = new THREE.MeshBasicMaterial({
+                map: createFloorSignTexture(),
+                transparent: true,
+                side: THREE.DoubleSide,
+                depthWrite: false
+            })
+            this.sajjadFloorSign = new THREE.Mesh(floorSignGeo, floorSignMat)
+            this.sajjadFloorSign.position.set(-4.5, 0.288, -1.4)
+            this.sajjadFloorSign.rotation.x = -Math.PI / 2
+            this.sajjadFloorSign.rotation.z = -Math.PI / 4.2
+            this.model.add(this.sajjadFloorSign)
+            this.sajjadFloorSign.layers.enable(1)
+
+            // Replace old JESSE'S RAMEN neon sign with SAJJAD JIM'S RAMEN
+            if (this.neonBlue) {
+                const mainSignGeo = new THREE.PlaneGeometry(4.7, 1.55)
+                const mainSignMat = new THREE.MeshBasicMaterial({
+                    map: createMainShopSignTexture(),
+                    side: THREE.DoubleSide
+                })
+                this.sajjadMainSign = new THREE.Mesh(mainSignGeo, mainSignMat)
+                this.sajjadMainSign.position.set(2.03, -0.12, 0.08)
+                this.neonBlue.add(this.sajjadMainSign)
+                this.sajjadMainSign.layers.enable(1)
+            }
 
             // Moving Objects
             this.fan1.material = this.materials.fanMatcapMaterial
