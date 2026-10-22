@@ -22,21 +22,24 @@ export default class PreLoader extends EventEmitter
         // Progress
         this.resources.on('itemLoaded', () =>
         {
-            this.progressRatio = (this.resources.loaded + 1)/ this.resources.toLoad
+            this.progressRatio = (this.resources.loaded + 1) / this.resources.toLoad
             const percentage = Math.trunc(this.progressRatio * 100)
             const percentageEl = document.getElementById("progressPercentage")
             if (percentageEl) percentageEl.innerHTML = percentage
             const fillEl = document.getElementById("loadingBarFill")
             if (fillEl) fillEl.style.width = percentage + '%'
+
+            window.dispatchEvent(new CustomEvent('loadingProgress', { detail: { percentage, ratio: this.progressRatio } }))
         })
 
         //Loaded
         this.resources.on('ready', () =>
         {
+            window.dispatchEvent(new CustomEvent('experienceReady'))
 
             window.setTimeout(() =>
             {
-                this.cooking.classList.add('fade')
+                if (this.cooking) this.cooking.classList.add('fade')
             }, 1500)
 
             window.setTimeout(() =>
@@ -48,48 +51,54 @@ export default class PreLoader extends EventEmitter
     
     readyScreen()
     {
-        this.cooking.remove()
-        this.startButton.style.display = "inline-flex"
-        this.startButton.classList.add('fadeIn')
-        this.startButton.addEventListener("click", async () => {
+        if (this.cooking) this.cooking.remove()
+        if (this.startButton) {
+            this.startButton.style.display = "inline-flex"
+            this.startButton.classList.add('fadeIn')
+            this.startButton.addEventListener("click", () => this.startExperience(), { once: true })
+        }
+    }
 
-            // Remove overlay and button
-            this.overlay.classList.add('fade')
-            this.startButton.classList.add('fadeOut')
+    async startExperience()
+    {
+        // Remove overlay and button
+        if (this.overlay) this.overlay.classList.add('fade')
+        if (this.startButton) this.startButton.classList.add('fadeOut')
 
-            window.setTimeout(() =>
-            {
-                this.startButton.remove()
-                this.overlay.remove()
-            }, 2000)
+        window.setTimeout(() =>
+        {
+            if (this.startButton) this.startButton.remove()
+            if (this.overlay) this.overlay.remove()
+        }, 2000)
 
-            // Trigger start events
-            this.controller = this.experience.controller
-            this.performance = this.experience.performance
+        // Trigger start events
+        this.controller = this.experience.controller
+        this.performance = this.experience.performance
 
-            // Move Camera
+        // Move Camera
+        if (this.controller && this.controller.camControls) {
             this.controller.camControls.toDefault()
+        }
 
-            // Play Sounds
-            this.sounds.playClick()
-            this.sounds.playWhoosh()
-            this.sounds.playCooking()
+        // Play Sounds
+        this.sounds.playClick()
+        this.sounds.playWhoosh()
+        this.sounds.playCooking()
 
-            // Required for instagram brower compatibility
-            this.sizes.resize()
-            
-            // Wait before performance Check
-            await this.sleep(500)
-            this.performance.performanceCheck()  
+        // Required for responsiveness
+        this.sizes.resize()
+        
+        // Wait before performance Check
+        await this.sleep(500)
+        if (this.performance) this.performance.performanceCheck()
 
-            // Emit Event
-            this.trigger('start')
+        // Emit Event
+        this.trigger('start')
+        window.dispatchEvent(new CustomEvent('experienceStarted'))
 
-            // Play Sounds
-            await this.sleep(500)
-            this.sounds.playDing()
-
-        },{ once: true });
+        // Play Sounds
+        await this.sleep(500)
+        this.sounds.playDing()
     }
 
     sleep(ms) 

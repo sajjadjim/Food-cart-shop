@@ -1,5 +1,6 @@
 import Experience from './Experience.js'
 import gsap from 'gsap'
+import { createProfileCanvasTexture } from './Utils/ProfileTextures.js'
 
 export default class Controller
 {
@@ -23,6 +24,12 @@ export default class Controller
         this.setCamControls()
         this.setVideoControls()
         this.setSocialControls()
+
+        this.sajjadTextures = {
+            about: createProfileCanvasTexture('about'),
+            skills: createProfileCanvasTexture('skills'),
+            experience: createProfileCanvasTexture('experience')
+        }
 
         this.resources.on('ready', () =>
         {
@@ -245,25 +252,12 @@ export default class Controller
                 this.menuControls.buttonIndicator(obj, color)
                 this.camControls.toAboutMe()
 
-                if(this.config.vertical === true)
-                {
-                    this.bigScreenTransition(
-                        this.materials.bigScreenMaterial,
-                        this.resources.items.bigScreenAboutMeMobileTexture,
-                        0.2,
-                    )
-                }
-                else
-                {
-                    this.bigScreenTransition(
-                        this.materials.bigScreenMaterial,
-                        this.resources.items.bigScreenAboutMeTexture,
-                        0.2,
-                    )
-                }
-
-
-
+                this.bigScreenTransition(
+                    this.materials.bigScreenMaterial,
+                    this.sajjadTextures.about,
+                    0.2,
+                )
+                window.dispatchEvent(new CustomEvent('openAboutModal'))
             }
         }
         this.menuControls.credits = async (obj, color) =>
@@ -304,23 +298,11 @@ export default class Controller
             {
                 this.sounds.playBloop()
                 this.logic.mode = 'aboutMe'
-                
-                if(this.config.vertical === true)
-                {
-                    this.bigScreenTransition(
-                        this.materials.bigScreenMaterial,
-                        this.resources.items.bigScreenAboutMeMobileTexture,
-                        0.2
-                    )
-                }
-                else
-                {
-                    this.bigScreenTransition(
-                        this.materials.bigScreenMaterial,
-                        this.resources.items.bigScreenAboutMeTexture,
-                        0.2
-                    )
-                }
+                this.bigScreenTransition(
+                    this.materials.bigScreenMaterial,
+                    this.sajjadTextures.about,
+                    0.2
+                )
             }
         }
 
@@ -330,23 +312,11 @@ export default class Controller
             {
                 this.sounds.playBloop()
                 this.logic.mode = 'skills'
-
-                if(this.config.vertical === true)
-                {
-                    this.bigScreenTransition(
-                        this.materials.bigScreenMaterial,
-                        this.resources.items.bigScreenSkillsMobileTexture,
-                        0.2
-                    )
-                }
-                else
-                {
-                    this.bigScreenTransition(
-                        this.materials.bigScreenMaterial,
-                        this.resources.items.bigScreenSkillsTexture,
-                        0.2
-                    )
-                }
+                this.bigScreenTransition(
+                    this.materials.bigScreenMaterial,
+                    this.sajjadTextures.skills,
+                    0.2
+                )
             }
         }
 
@@ -356,23 +326,11 @@ export default class Controller
             {
                 this.sounds.playBloop()
                 this.logic.mode = 'experience'
-
-                if(this.config.vertical === true)
-                {
-                    this.bigScreenTransition(
-                        this.materials.bigScreenMaterial,
-                        this.resources.items.bigScreenExperienceMobileTexture,
-                        0.2
-                    )
-                }
-                else
-                {
-                    this.bigScreenTransition(
-                        this.materials.bigScreenMaterial,
-                        this.resources.items.bigScreenExperienceTexture,
-                        0.2
-                    )
-                }
+                this.bigScreenTransition(
+                    this.materials.bigScreenMaterial,
+                    this.sajjadTextures.experience,
+                    0.2
+                )
             }
         }
 
